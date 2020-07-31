@@ -41,7 +41,7 @@ class _GenixAppState extends State<GenixApp> {
     Locale _locale = Locale(themeProvider.languageCode);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Genix Todo',
+      title: 'Genix todo',
       theme: themeProvider.themeData(),
       home: GenixTodo(),
       locale: _locale,
