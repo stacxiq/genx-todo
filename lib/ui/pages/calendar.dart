@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/ui/widgets/custom_text.dart';
+
+import '../widgets/custom_text.dart';
 
 class CalendartTap extends StatefulWidget {
   CalendartTap({Key key}) : super(key: key);

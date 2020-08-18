@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:todolist/ui/widgets/custom_text.dart';
+
+import '../widgets/custom_text.dart';
 
 class TasksTap extends StatefulWidget {
   TasksTap({Key key}) : super(key: key);

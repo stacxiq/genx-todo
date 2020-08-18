@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todolist/localization/demo_localizations.dart';
-import 'package:todolist/models/theme_provider.dart';
+import 'package:get/get.dart';
 
-class CustomText extends StatelessWidget {
+import '../../controllers/theme_controller.dart';
+
+///This custom text is used to unify the text style of the app
+class CustomText extends GetWidget<SettingsController> {
   final String text;
   final EdgeInsetsGeometry padding;
   final Color textColor;
@@ -12,33 +13,34 @@ class CustomText extends StatelessWidget {
   final TextDirection textDirection;
   final bool iprefText;
 
-  const CustomText({
-    Key key,
+  CustomText({
     @required this.text,
     this.padding,
     this.textColor,
     this.fontSize,
     this.textAlign,
     this.textDirection,
-    this.iprefText = false,
-  }) : super(key: key);
+    this.iprefText = false, //if the text should use the prefrences color
+  });
 
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-
     return Padding(
       padding: padding ?? EdgeInsets.all(0),
-      child: Text(
-        DemoLocalizations.of(context).translate(text),
-        style: TextStyle(
-          color: iprefText
-              ? Color(int.parse(themeProvider.prefrencesColor))
-              : textColor,
-          fontSize: fontSize,
-        ),
-        textAlign: textAlign,
-        textDirection: textDirection,
+      child: GetX<SettingsController>(
+        builder: (s) {
+          String color = controller.prefColor.value;
+          return Text(
+            text.tr,
+            style: TextStyle(
+              color: iprefText ? Color(int.parse(color)) : textColor,
+              fontSize: fontSize,
+              fontFamily: s.locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+            ),
+            textAlign: textAlign,
+            textDirection: textDirection,
+          );
+        },
       ),
     );
   }

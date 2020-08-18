@@ -1,69 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart' as pathProvider;
-import 'package:provider/provider.dart';
-import 'package:todolist/localization/demo_localizations.dart';
-import 'package:todolist/ui/pages/home_page.dart';
 
-import 'models/theme_provider.dart';
+import './ui/pages/home_page.dart';
+import './localization/localizations.dart';
+import './controllers/theme_controller.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDirectory =
       await pathProvider.getApplicationDocumentsDirectory();
-
   Hive.init(appDocumentDirectory.path);
+  //initialize setting controller
+  Get.lazyPut<SettingsController>(() => SettingsController());
 
-  final settings = await Hive.openBox('settings');
-  bool isLightTheme = settings.get('isLightTheme') ?? false;
-  String prefrencesColor = settings.get('prefrencesColor') ?? '0xFF76DC58';
-  String languageCode = settings.get('languageCode') ?? 'en';
-
-  runApp(ChangeNotifierProvider(
-    create: (_) => ThemeProvider(
-        isLightTheme: isLightTheme,
-        prefrencesColor: prefrencesColor,
-        languageCode: languageCode),
-    child: GenixApp(),
-  ));
+  runApp(GenxApp());
 }
 
-class GenixApp extends StatefulWidget with WidgetsBindingObserver {
-  @override
-  _GenixAppState createState() => _GenixAppState();
-}
-
-class _GenixAppState extends State<GenixApp> {
+class GenxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-    Locale _locale = Locale(themeProvider.languageCode);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Genix todo',
-      theme: themeProvider.themeData(),
-      home: GenixTodo(),
-      locale: _locale,
-      supportedLocales: [
-        const Locale('en'),
-        const Locale('ar'),
-      ],
-      localizationsDelegates: [
-        // ... app-specific localization delegate[s] here
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        DemoLocalizations.delegate,
-      ],
-      localeResolutionCallback: (deviceLocale, supportedLocales) {
-        for (var locale in supportedLocales) {
-          if (locale.languageCode == deviceLocale.languageCode) {
-            return locale;
-          }
-        }
-        return supportedLocales.first;
-      },
-    );
+    return GetX<SettingsController>(
+        init: SettingsController(),
+        builder: (_) {
+          return GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'Genx todo',
+            theme: SettingsController.themeData(true),
+            darkTheme: SettingsController.themeData(false),
+            home: GenxTodo(),
+            locale: _.locale,
+            themeMode: ThemeMode.system,
+            translations: MyTranslations(),
+            supportedLocales: [
+              const Locale('en'),
+              const Locale('ar'),
+            ],
+            localizationsDelegates: [
+              // ... app-specific localization delegate[s] here
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+          );
+        });
   }
 }

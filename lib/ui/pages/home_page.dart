@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:todolist/models/theme_provider.dart';
-import 'package:todolist/ui/pages/Tasks.dart';
-import 'package:todolist/ui/pages/calendar.dart';
-import 'package:todolist/ui/pages/settings.dart';
-import 'package:todolist/ui/widgets/custom_text.dart';
+import 'package:get/get.dart';
 
-class GenixTodo extends StatefulWidget {
-  GenixTodo({Key key}) : super(key: key);
+import './Tasks.dart';
+import './calendar.dart';
+import './settings.dart';
+import '../widgets/custom_text.dart';
+import '../../controllers/theme_controller.dart';
+
+class GenxTodo extends StatefulWidget {
+  GenxTodo({Key key}) : super(key: key);
 
   @override
-  _GenixTodoState createState() => _GenixTodoState();
+  _GenxTodoState createState() => _GenxTodoState();
 }
 
-class _GenixTodoState extends State<GenixTodo> {
+class _GenxTodoState extends State<GenxTodo> {
   int _currentIndex = 0;
   List<Widget> taps = [
     TasksTap(),
@@ -22,45 +23,52 @@ class _GenixTodoState extends State<GenixTodo> {
   ];
   @override
   Widget build(BuildContext context) {
-    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
-    Color selectedColor = Color(int.parse(themeProvider.prefrencesColor));
-    return Scaffold(
-      body: taps[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _currentIndex,
-        selectedItemColor: selectedColor,
-        // unselectedItemColor: const Color(0xffC5C3E3),
-        // iconSize: 35,
-        onTap: (value) {
-          setState(() {
-            _currentIndex = value;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icons/settings_icon.png',
-              color: _currentIndex == 0 ? selectedColor : null,
+    return GetX<SettingsController>(
+        init: SettingsController(),
+        builder: (s) {
+          Color selectedColor = Color(int.parse(s.prefColor.value));
+          return Scaffold(
+            body: taps[_currentIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              selectedItemColor: selectedColor,
+              iconSize: 35,
+              onTap: (value) {
+                setState(() {
+                  _currentIndex = value;
+                });
+              },
+              items: [
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/settings_icon.png',
+                    color: _currentIndex == 0
+                        ? selectedColor
+                        : const Color(0xffC5C3E3),
+                  ),
+                  title: CustomText(text: 'Tasks'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/calendar_icon.png',
+                    color: _currentIndex == 1
+                        ? selectedColor
+                        : const Color(0xffC5C3E3),
+                  ),
+                  title: CustomText(text: 'Calendar'),
+                ),
+                BottomNavigationBarItem(
+                  icon: Image.asset(
+                    'assets/icons/task_icon.png',
+                    color: _currentIndex == 2
+                        ? selectedColor
+                        : const Color(0xffC5C3E3),
+                  ),
+                  title: CustomText(text: 'Settings'),
+                ),
+              ],
             ),
-            title: CustomText(text: 'Tasks'),
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icons/calendar_icon.png',
-              color: _currentIndex == 1 ? selectedColor : null,
-            ),
-            title: CustomText(text: 'Calendar'),
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset(
-              'assets/icons/task_icon.png',
-              color: _currentIndex == 2 ? selectedColor : null,
-            ),
-            title: CustomText(text: 'Settings'),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 }
