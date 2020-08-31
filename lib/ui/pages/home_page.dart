@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:todolist/ui/pages/Pomodoro.dart';
 
 import './Tasks.dart';
 import './calendar.dart';
@@ -19,8 +21,17 @@ class _GenxTodoState extends State<GenxTodo> {
   List<Widget> taps = [
     TasksTap(),
     CalendartTap(),
+    Pomodoro(),
     SettingsTap(),
   ];
+
+  List<BottomNav> _items = [
+    BottomNav('Tasks', LineAwesomeIcons.check_square),
+    BottomNav('Calendar', LineAwesomeIcons.calendar_check),
+    BottomNav('Pomodoro', LineAwesomeIcons.stopwatch),
+    BottomNav('Settings', LineAwesomeIcons.horizontal_sliders),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return GetX<SettingsController>(
@@ -30,45 +41,30 @@ class _GenxTodoState extends State<GenxTodo> {
           return Scaffold(
             body: taps[_currentIndex],
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex: _currentIndex,
-              selectedItemColor: selectedColor,
-              iconSize: 35,
-              onTap: (value) {
-                setState(() {
-                  _currentIndex = value;
-                });
-              },
-              items: [
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icons/settings_icon.png',
-                    color: _currentIndex == 0
-                        ? selectedColor
-                        : const Color(0xffC5C3E3),
-                  ),
-                  title: CustomText(text: 'Tasks'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icons/calendar_icon.png',
-                    color: _currentIndex == 1
-                        ? selectedColor
-                        : const Color(0xffC5C3E3),
-                  ),
-                  title: CustomText(text: 'Calendar'),
-                ),
-                BottomNavigationBarItem(
-                  icon: Image.asset(
-                    'assets/icons/task_icon.png',
-                    color: _currentIndex == 2
-                        ? selectedColor
-                        : const Color(0xffC5C3E3),
-                  ),
-                  title: CustomText(text: 'Settings'),
-                ),
-              ],
-            ),
+                currentIndex: _currentIndex,
+                elevation: 2,
+                selectedItemColor: selectedColor,
+                selectedFontSize: 15,
+                unselectedFontSize: 15,
+                type: BottomNavigationBarType.fixed,
+                onTap: (value) {
+                  setState(() {
+                    _currentIndex = value;
+                  });
+                },
+                items: _items
+                    .map((item) => BottomNavigationBarItem(
+                        icon: Icon(item.icon,size: 30),
+                        title: CustomText(text: item.name)))
+                    .toList()),
           );
         });
   }
+}
+
+class BottomNav {
+  final String name;
+  final IconData icon;
+
+  BottomNav(this.name, this.icon);
 }

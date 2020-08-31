@@ -84,5 +84,12 @@ Map<String, String> get arabicMap => {
       "Creat New Task": "انشاء مهمة جديدة",
       "Theme": "المظهر",
       "Tasks": "المهام",
-      "All Tasks": "كل المهام"
+      "Title" : "عنوان",
+      "All Tasks": "كل المهام",
+      "Work Time": "وقت العمل",
+      "Break Time": "وقت الاستراحة",
+      "Start" : "البدء",
+      "Pause" : "أيقاف مؤقت",
+      "Stop" : "ايقاف",
+      "Pomodoro" : "مؤقت"
     };

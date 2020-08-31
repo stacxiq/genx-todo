@@ -75,5 +75,12 @@ Map<String, String> get englishMap => {
       "Notification": "Notification",
       "Notifications": "Notifications",
       "Creat New Task": "Creat New Task",
-      "Theme": "Theme"
+      "Title" : "Title",
+      "Theme": "Theme",
+      "Break Time": "Break Time",
+      "Work Time": "Work Time",
+      "Start" : "Start",
+      "Pause" : "Pause",
+      "Stop" : "Stop",
+      "Pomodoro" : "Timer",
     };
