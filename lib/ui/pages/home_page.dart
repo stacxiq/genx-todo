@@ -6,7 +6,6 @@ import 'package:todolist/ui/pages/Pomodoro.dart';
 import './Tasks.dart';
 import './calendar.dart';
 import './settings.dart';
-import '../widgets/custom_text.dart';
 import '../../controllers/theme_controller.dart';
 
 class GenxTodo extends StatefulWidget {
@@ -54,8 +53,9 @@ class _GenxTodoState extends State<GenxTodo> {
                 },
                 items: _items
                     .map((item) => BottomNavigationBarItem(
-                        icon: Icon(item.icon,size: 30),
-                        title: CustomText(text: item.name)))
+                          icon: Icon(item.icon, size: 30),
+                          label: item.name,
+                        ))
                     .toList()),
           );
         });

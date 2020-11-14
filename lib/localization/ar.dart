@@ -91,5 +91,18 @@ Map<String, String> get arabicMap => {
       "Start" : "البدء",
       "Pause" : "أيقاف مؤقت",
       "Stop" : "ايقاف",
-      "Pomodoro" : "مؤقت"
+      "Pomodoro" : "مؤقت",
+      "Tomorrow" : "غداً",
+      "Other":"اخرى",
+      "Task name":"اسم المهمة",
+      "Task note":"معلومات اضافية عن المهمة",
+      "high":"عالية",
+      "medium":"متوسطة",
+      "low":"منخفضة",
+      "priority":"أولوية",
+      "choose priority of task":"اختر أولوية المهمة",
+      "Date-Time":"الوقت والتاريخ",
+      "Create Tesk":"انشاء المهمة",
+      
+
     };

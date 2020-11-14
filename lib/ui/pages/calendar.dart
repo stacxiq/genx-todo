@@ -107,7 +107,7 @@ class _CalendartTapState extends State<CalendartTap> {
                   ListView.builder(
                     itemCount: _selectedEvents.length,
                     shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index){
+                    itemBuilder: (BuildContext context, int index) {
                       return taskBlock(
                           title: _selectedEvents[index]["title"],
                           description: _selectedEvents[index]["description"],
@@ -206,7 +206,7 @@ class _CalendartTapState extends State<CalendartTap> {
         },
       ),
       events: _events,
-      onDaySelected: (date, events) {
+      onDaySelected: (date, events, holidays) {
         setState(() {
           _selectedEvents = events;
         });
