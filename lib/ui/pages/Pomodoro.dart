@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:get/get.dart';
+import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
-import 'package:todolist/controllers/theme_controller.dart';
-import 'package:todolist/ui/widgets/custom_text.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
+
+import '../../ui/widgets/custom_text.dart';
+import '../../controllers/theme_controller.dart';
 
 class Pomodoro extends StatefulWidget {
   @override

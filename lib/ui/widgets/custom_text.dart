@@ -12,6 +12,7 @@ class CustomText extends GetWidget<SettingsController> {
   final TextAlign textAlign;
   final TextDirection textDirection;
   final bool iprefText;
+  final FontWeight fontWeight;
 
   CustomText({
     @required this.text,
@@ -20,6 +21,7 @@ class CustomText extends GetWidget<SettingsController> {
     this.fontSize,
     this.textAlign,
     this.textDirection,
+    this.fontWeight,
     this.iprefText = false, //if the text should use the prefrences color
   });
 
@@ -29,13 +31,14 @@ class CustomText extends GetWidget<SettingsController> {
       padding: padding ?? EdgeInsets.all(0),
       child: GetX<SettingsController>(
         builder: (s) {
-          String color = controller.prefColor.value;
+          String color = s.prefColor.value;
           return Text(
             text.tr,
             style: TextStyle(
               color: iprefText ? Color(int.parse(color)) : textColor,
               fontSize: fontSize,
               fontFamily: s.locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+              fontWeight: fontWeight,
             ),
             textAlign: textAlign,
             textDirection: textDirection,

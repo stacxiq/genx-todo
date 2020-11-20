@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:todolist/ui/pages/Pomodoro.dart';
 
-import './Tasks.dart';
 import './calendar.dart';
 import './settings.dart';
+import './Pomodoro.dart';
+import '../widgets/my_lists_tab.dart';
 import '../../controllers/theme_controller.dart';
 
 class GenxTodo extends StatefulWidget {
@@ -18,7 +18,7 @@ class GenxTodo extends StatefulWidget {
 class _GenxTodoState extends State<GenxTodo> {
   int _currentIndex = 0;
   List<Widget> taps = [
-    TasksTap(),
+    MyListsTab(),
     CalendartTap(),
     Pomodoro(),
     SettingsTap(),
@@ -43,9 +43,17 @@ class _GenxTodoState extends State<GenxTodo> {
                 currentIndex: _currentIndex,
                 elevation: 2,
                 selectedItemColor: selectedColor,
-                selectedFontSize: 15,
-                unselectedFontSize: 15,
                 type: BottomNavigationBarType.fixed,
+                unselectedLabelStyle: TextStyle(
+                  fontSize: 13,
+                  fontFamily:
+                      s.locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+                ),
+                selectedLabelStyle: TextStyle(
+                  fontSize: 15,
+                  fontFamily:
+                      s.locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+                ),
                 onTap: (value) {
                   setState(() {
                     _currentIndex = value;
@@ -54,7 +62,7 @@ class _GenxTodoState extends State<GenxTodo> {
                 items: _items
                     .map((item) => BottomNavigationBarItem(
                           icon: Icon(item.icon, size: 30),
-                          label: item.name,
+                          label: item.name.tr,
                         ))
                     .toList()),
           );

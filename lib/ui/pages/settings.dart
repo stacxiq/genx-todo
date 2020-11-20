@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controllers/theme_controller.dart';
 import '../widgets/custom_text.dart';
+import '../../controllers/theme_controller.dart';
 
 final List<String> prefrencesColorsDark = [
   '0xFF76DC58',
@@ -11,10 +11,10 @@ final List<String> prefrencesColorsDark = [
   '0xFF80D8FF',
 ];
 final List<String> prefrencesColorsLight = [
-  '0xFF00BFA5',
+  '0xFF54B169',
   '0xFFC02F1D',
   '0xFFFF6D00',
-  '0xFF000000',
+  '0xFFCC6462',
 ];
 
 class SettingsTap extends StatelessWidget {
@@ -62,7 +62,10 @@ class SettingsTap extends StatelessWidget {
                                     decoration: BoxDecoration(
                                         color: Color(int.parse(hexColor)),
                                         border: selectedColor == hexColor
-                                            ? Border.all(width: 2)
+                                            ? Border.all(
+                                                width: 2,
+                                                color: Theme.of(context)
+                                                    .canvasColor)
                                             : null,
                                         borderRadius:
                                             BorderRadius.circular(50)),
