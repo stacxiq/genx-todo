@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import '../../controllers/theme_controller.dart';
 
 ///This custom text is used to unify the text style of the app
-class CustomText extends GetWidget<SettingsController> {
+class CustomText extends StatelessWidget {
   final String text;
   final EdgeInsetsGeometry padding;
   final Color textColor;
@@ -14,7 +14,7 @@ class CustomText extends GetWidget<SettingsController> {
   final bool iprefText;
   final FontWeight fontWeight;
 
-  CustomText({
+  const CustomText({
     @required this.text,
     this.padding,
     this.textColor,
@@ -28,7 +28,7 @@ class CustomText extends GetWidget<SettingsController> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? EdgeInsets.all(0),
+      padding: padding ?? const EdgeInsets.all(0),
       child: GetX<SettingsController>(
         builder: (s) {
           String color = s.prefColor.value;

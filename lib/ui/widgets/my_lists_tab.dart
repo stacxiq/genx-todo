@@ -7,6 +7,7 @@ import '../pages/tasks_list_page.dart';
 import '../../controllers/task_controller.dart';
 
 class MyListsTab extends StatefulWidget {
+  const MyListsTab();
   @override
   _MyListsTabState createState() => _MyListsTabState();
 }
@@ -16,9 +17,9 @@ class _MyListsTabState extends State<MyListsTab> {
   final _fromKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    // var _size = MediaQuery.of(context).size;
-    var _width = MediaQuery.of(context).size.width;
-    var _height = MediaQuery.of(context).size.height;
+    var _size = MediaQuery.of(context).size;
+    var _width = _size.width;
+    var _height = _size.height;
     var _appBarColor = Theme.of(context).appBarTheme.color;
 
     /*24 is for notification bar on Android*/
@@ -38,20 +39,6 @@ class _MyListsTabState extends State<MyListsTab> {
           },
           onTap: () {
             switch (listName) {
-              case 'All Tasks':
-                Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (_) => TasksListPage(selectedList: listName),
-                  ),
-                );
-                break;
-              case 'Finished':
-                Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    builder: (_) => TasksListPage(selectedList: listName),
-                  ),
-                );
-                break;
               case 'Add List':
                 _showAddListDialog();
                 break;
@@ -69,11 +56,7 @@ class _MyListsTabState extends State<MyListsTab> {
               image.isEmpty
                   ? Icon(icon, size: 90)
                   : ImageIcon(AssetImage(image), size: 100),
-              CustomText(
-                text: listName,
-                fontSize: 20,
-                iprefText: true,
-              ),
+              CustomText(text: listName, fontSize: 20, iprefText: true),
             ],
           ),
         ),
@@ -82,7 +65,7 @@ class _MyListsTabState extends State<MyListsTab> {
 
     return Scaffold(
       appBar: AppBar(
-        title: CustomText(
+        title: const CustomText(
           text: "My Lists",
           fontSize: 25,
           fontWeight: FontWeight.bold,
@@ -93,7 +76,7 @@ class _MyListsTabState extends State<MyListsTab> {
           id: 'tasks',
           builder: (t) {
             return Container(
-              margin: EdgeInsets.all(10),
+              margin: const EdgeInsets.all(10),
               child: GridView.count(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
@@ -125,17 +108,17 @@ class _MyListsTabState extends State<MyListsTab> {
               backgroundColor: Theme.of(context).scaffoldBackgroundColor,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
-              title: CustomText(text: 'Are you sure?'),
-              content:
-                  CustomText(text: 'All tasks from the list will be deleted'),
+              title: const CustomText(text: 'Are you sure?'),
+              content: const CustomText(
+                  text: 'All tasks from the list will also be deleted.'),
               actions: <Widget>[
                 FlatButton(
-                    child: CustomText(text: 'CANCEL'),
+                    child: const CustomText(text: 'CANCEL'),
                     onPressed: () {
                       Navigator.pop(context);
                     }),
                 FlatButton(
-                    child: CustomText(text: 'SAVE'),
+                    child: const CustomText(text: 'DELETE'),
                     onPressed: () {
                       if (_fromKey.currentState.validate()) {
                         TaskController.to.removeList(listName);
@@ -153,7 +136,7 @@ class _MyListsTabState extends State<MyListsTab> {
         contentPadding: const EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: CustomText(text: 'List Name'),
+        title: const CustomText(text: 'List Name'),
         content: Form(
           key: _fromKey,
           child: TextFormField(
@@ -174,12 +157,12 @@ class _MyListsTabState extends State<MyListsTab> {
         ),
         actions: <Widget>[
           FlatButton(
-              child: CustomText(text: 'CANCEL'),
+              child: const CustomText(text: 'CANCEL'),
               onPressed: () {
                 Navigator.pop(context);
               }),
           FlatButton(
-              child: CustomText(text: 'SAVE'),
+              child: const CustomText(text: 'SAVE'),
               onPressed: () {
                 if (_fromKey.currentState.validate()) {
                   TaskController.to.addNewList(_listNameController.text);

@@ -10,7 +10,7 @@ import '../../controllers/task_controller.dart';
 import '../../controllers/theme_controller.dart';
 
 class CalendartTap extends StatefulWidget {
-  CalendartTap({Key key}) : super(key: key);
+  const CalendartTap({Key key}) : super(key: key);
 
   @override
   _CalendartTapState createState() => _CalendartTapState();
@@ -20,16 +20,14 @@ class _CalendartTapState extends State<CalendartTap> {
   CalendarController _calendarController;
   Map<DateTime, List<Task>> _events;
   List<Task> _selectedEvents;
-  Locale locale;
-  Color selectedColor;
+  Locale _locale;
   DateTime selectedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
     _calendarController = CalendarController();
-    _events = {};
-    _selectedEvents = [];
+    _locale = SettingsController.to.locale;
   }
 
   @override
@@ -40,11 +38,15 @@ class _CalendartTapState extends State<CalendartTap> {
 
   @override
   Widget build(BuildContext context) {
-    selectedColor = Color(int.parse(SettingsController.to.prefColor.value));
-    locale = SettingsController.to.locale;
     return GetBuilder<TaskController>(
         id: 'calendar',
         builder: (tc) {
+          //I'm re-initializing _selectedEvents and _events every time the state changes
+          //because when the the user opens the tab for the first time the tasks in
+          //that day desn't appear for whatever reason and also the same thing happens
+          //when the user add a new task frm this tab and when the user tab on the same day muliple times
+          //the value of the task in that day get dublicated so I have to do that
+          //If you have a solu pls go ahead 😚💓
           _selectedEvents = [];
           _events = {};
           tc.tasks.forEach((t) {
@@ -63,14 +65,15 @@ class _CalendartTapState extends State<CalendartTap> {
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: CustomText(text: 'Calendar'),
+              title: const CustomText(text: 'Calendar'),
             ),
             body: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics:
+                  BouncingScrollPhysics(), //I don't know what this is. Ask fahad
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  calendar(selectedColor),
+                  calendar(),
                   ListView.builder(
                     itemCount: _selectedEvents.length,
                     shrinkWrap: true,
@@ -83,24 +86,24 @@ class _CalendartTapState extends State<CalendartTap> {
             ),
             floatingActionButton: FloatingActionButton(
               onPressed: () => updateTaskModalBottomSheet(context: context),
-              backgroundColor: selectedColor,
+              backgroundColor: Theme.of(context).accentColor,
               child: Icon(Icons.add, color: Colors.white),
             ),
           );
         });
   }
 
-  TableCalendar calendar(Color selectedColor) {
+  TableCalendar calendar() {
+    final selectedColor = Theme.of(context).accentColor;
     return TableCalendar(
-      locale: locale.toString(),
       daysOfWeekStyle: DaysOfWeekStyle(
-          weekendStyle: TextStyle().copyWith(
-            color: selectedColor,
-            fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+          weekendStyle: TextStyle(
+            color: Theme.of(context).accentColor,
+            fontFamily: _locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
           ),
-          weekdayStyle: TextStyle().copyWith(
+          weekdayStyle: TextStyle(
             color: Colors.black87.withOpacity(.5),
-            fontFamily: locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
+            fontFamily: _locale.languageCode == 'ar' ? 'Cairo' : 'OpenSans',
           )),
       calendarStyle: CalendarStyle(
         canEventMarkersOverflow: true,
@@ -110,16 +113,14 @@ class _CalendartTapState extends State<CalendartTap> {
         weekendStyle: TextStyle(color: selectedColor),
         outsideWeekendStyle: TextStyle(color: selectedColor.withOpacity(.5)),
       ),
-      headerStyle: HeaderStyle(
-        centerHeaderTitle: true,
-      ),
+      headerStyle: const HeaderStyle(centerHeaderTitle: true),
       builders: CalendarBuilders(
         markersBuilder: (context, date, events, holidays) {
           final children = <Widget>[];
           if (events.isNotEmpty) {
             children.add(Positioned(
               bottom: 8,
-              child: _buildEventsMarkerNum(date, events),
+              child: _buildEventsMarkerDot(),
             ));
           }
           return children;
@@ -128,23 +129,18 @@ class _CalendartTapState extends State<CalendartTap> {
       events: _events,
       onDaySelected: (date, events, holidays) {
         selectedDate = date;
-        setState(() {
-          events.isNotEmpty
-              ? _selectedEvents = events as List<Task>
-              : _selectedEvents = [];
-        });
+        setState(() {}); //don't delete this bcz it's nesseary
       },
       calendarController: _calendarController,
     );
   }
 
-  Widget _buildEventsMarkerNum(date, events) {
+  ///To indicate that there is some events on that day
+  Widget _buildEventsMarkerDot() {
     return Center(
-      child: Text(
+      child: const Text(
         '.',
-        style: TextStyle().copyWith(
-          fontSize: 30.0,
-        ),
+        style: TextStyle(fontSize: 30.0),
       ),
     );
   }

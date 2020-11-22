@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import './creat_task.dart';
@@ -54,9 +55,7 @@ class TaskBlock extends StatelessWidget {
                         : Colors.green),
             child: Center(
               child: CustomText(
-                text: taskData.priority
-                    .toString()
-                    .replaceAll('TaskPriority.', ''),
+                text: describeEnum(taskData.priority),
                 textColor: Colors.white,
               ),
             ),
@@ -95,9 +94,7 @@ class CircleCheckbox extends StatelessWidget {
             color: Theme.of(context).accentColor,
             width: 1,
           ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(20),
-          )),
+          borderRadius: const BorderRadius.all(Radius.circular(20))),
       width: 24,
       height: 24,
       child: Theme(

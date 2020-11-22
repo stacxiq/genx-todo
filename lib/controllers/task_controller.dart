@@ -23,6 +23,7 @@ class TaskController extends GetxController {
   @override
   void onInit() async {
     super.onInit();
+    //To make sure the is only one instance of the sqflite db for the entire app
     _dbInstance = await _intDB();
     _tasks.assignAll(await _getAllTasks());
     _getTaskLists();
@@ -46,6 +47,7 @@ class TaskController extends GetxController {
     }
   }
 
+  ///To creat new task and save it on the local DB
   Future<int> saveTask(Task task) async {
     try {
       _tasks.add(task);
@@ -58,6 +60,7 @@ class TaskController extends GetxController {
     return null;
   }
 
+  ///To Delete a task by Id from the local DB
   Future<void> deleteTask(String id) async {
     try {
       _tasks.removeWhere((t) => t.id == id);
@@ -68,6 +71,7 @@ class TaskController extends GetxController {
     }
   }
 
+  ///To update new task by Id and save it on the local DB
   Future<void> updateTask(Task task) async {
     try {
       var index = _tasks.indexWhere((t) => t.id == task.id);
@@ -89,6 +93,7 @@ class TaskController extends GetxController {
     return tasks;
   }
 
+  //this func. shouldn't be used outside the class
   Future<List<Task>> _getAllTasks() async {
     try {
       var sql = "SELECT * FROM $_taskTable ORDER BY priority ASC";
@@ -100,6 +105,7 @@ class TaskController extends GetxController {
     return null;
   }
 
+  //this func. shouldn't be used outside the class
   Future<void> _getTaskLists() async {
     try {
       var sql = "SELECT * FROM $_taskListsTable";
@@ -120,15 +126,8 @@ class TaskController extends GetxController {
     }
     return null;
   }
-  // Future<Task> getTaskById(int id) async {
-  //   try {
-  //     return _tasks.firstWhere((t) => t.id == id);
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  //   return null;
-  // }
 
+  ///To add a new list to the App and save it to the local DB
   Future<int> addNewList(String listName) async {
     try {
       _taskLists.add(listName);
@@ -142,6 +141,8 @@ class TaskController extends GetxController {
     return null;
   }
 
+  ///To remove a list and The tasks that belongs to it
+  ///from the App and the local DB
   Future<int> removeList(String listName) async {
     try {
       _taskLists.remove(listName);

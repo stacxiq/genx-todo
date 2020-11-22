@@ -11,9 +11,7 @@ import '../../controllers/task_controller.dart';
 class TasksListPage extends StatefulWidget {
   final String selectedList;
 
-  const TasksListPage({
-    @required this.selectedList,
-  });
+  const TasksListPage({@required this.selectedList});
 
   @override
   _TasksListPageState createState() => _TasksListPageState();
@@ -34,6 +32,7 @@ class _TasksListPageState extends State<TasksListPage> {
               tomorrow = [],
               later = [],
               noDate = [],
+              //selectedTasks
               sTasks = tc.tasks.where((t) {
                 if (widget.selectedList == "Finished")
                   return t.isFinished;
@@ -55,12 +54,13 @@ class _TasksListPageState extends State<TasksListPage> {
               else
                 later.add(ti);
             });
+
           Widget _checkIfEmpty({Widget child}) {
             return sTasks.isEmpty
                 ? Container(
                     margin: EdgeInsets.only(top: _height * 0.4),
                     alignment: Alignment.center,
-                    child: CustomText(
+                    child: const CustomText(
                       text: 'There is no tasks here yet',
                       fontSize: 18,
                     ),
@@ -81,7 +81,8 @@ class _TasksListPageState extends State<TasksListPage> {
                             todoList(tomorrow, "Tomorrow"),
                             todoList(later, "Later"),
                             todoList(noDate, "No Date"),
-                            SizedBox(height: 60),
+                            //in order to be no task under floatingActionButton i added sizedbox
+                            const SizedBox(height: 60),
                           ],
                         ),
                 ),
@@ -92,20 +93,13 @@ class _TasksListPageState extends State<TasksListPage> {
           return Scaffold(
             appBar: AppBar(
               title: CustomText(text: widget.selectedList),
-              actions: [
-                // RaisedButton(
-                //   onPressed: () {
-                //     DatabaseHelper().deleteAll();
-                //   },
-                // ),
-              ],
             ),
             body: _body(),
             floatingActionButton: FloatingActionButton(
               onPressed: () {
                 updateTaskModalBottomSheet(context: context);
               },
-              child: Icon(Icons.add, color: Colors.white, size: 24),
+              child: const Icon(Icons.add, color: Colors.white, size: 24),
               backgroundColor: Theme.of(context).accentColor,
             ),
           );
@@ -119,7 +113,8 @@ class _TasksListPageState extends State<TasksListPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CustomText(
                       text: titleBlock, iprefText: true, fontSize: 22)),
               ListView.builder(

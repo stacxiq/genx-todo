@@ -9,6 +9,7 @@ import './custom_text.dart';
 import '../../models/task.dart';
 import '../../controllers/task_controller.dart';
 
+///This func. is used to create or update a task form the ui side
 void updateTaskModalBottomSheet(
     {@required BuildContext context, Task oldTask}) {
   final _formKey = GlobalKey<FormState>();
@@ -29,7 +30,7 @@ void updateTaskModalBottomSheet(
       isFinished: false,
     );
 
-  Future _selectDate(BuildContext context, StateSetter modalSetState) async {
+  Future _selectDate(StateSetter modalSetState) async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: newTask.dueDate ?? DateTime.now(),
@@ -45,26 +46,29 @@ void updateTaskModalBottomSheet(
 
   showMaterialModalBottomSheet(
       context: context,
-      backgroundColor: Color(0xFF232B3E).withOpacity(0),
+      backgroundColor: const Color(0xFF232B3E).withOpacity(0),
       builder: (bc) {
         final _height = MediaQuery.of(context).size.height;
+
+        ///I used [StatefulBuilder]because in normal setstate
+        ///the modal sheet doesn't update its state. So insted use [modalSetState((){})]
         return StatefulBuilder(builder: (context, modalSetState) {
           return Container(
             height: _height >= 750 ? _height * 0.8 : _height * 0.8,
             decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 )),
             child: Column(
               children: <Widget>[
                 Container(
                   width: 60,
                   height: 5,
-                  margin: EdgeInsets.only(top: 5),
+                  margin: const EdgeInsets.only(top: 5),
                   decoration: BoxDecoration(
-                      color: Color(0xFFCFDADF),
+                      color: const Color(0xFFCFDADF),
                       borderRadius: BorderRadius.circular(10)),
                 ),
                 Padding(
@@ -73,12 +77,10 @@ void updateTaskModalBottomSheet(
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            CustomText(
-                              text: 'Task Details',
-                              fontSize: 25,
-                            ),
+                            const CustomText(
+                                text: 'Task Details', fontSize: 25),
                             FlatButton(
-                                child: CustomText(text: 'Delete'),
+                                child: const CustomText(text: 'Delete'),
                                 color: Colors.red,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(40)),
@@ -88,10 +90,7 @@ void updateTaskModalBottomSheet(
                                 }),
                           ],
                         )
-                      : CustomText(
-                          text: "Creat New Task",
-                          fontSize: 25,
-                        ),
+                      : const CustomText(text: "Creat New Task", fontSize: 25),
                 ),
                 Form(
                   key: _formKey,
@@ -100,8 +99,7 @@ void updateTaskModalBottomSheet(
                       BottomCard(
                         child: TextFormField(
                           initialValue: newTask.title,
-                          // controller: _titleController,
-                          enabled: true,
+                          autofocus: false,
                           onChanged: (value) =>
                               newTask = newTask.copyWith(title: value),
                           validator: (value) {
@@ -119,7 +117,7 @@ void updateTaskModalBottomSheet(
                       BottomCard(
                         child: TextFormField(
                           initialValue: newTask.body,
-                          // controller: _contentController,
+                          autofocus: false,
                           onChanged: (value) =>
                               newTask = newTask.copyWith(body: value),
                           maxLines: 3,
@@ -138,24 +136,26 @@ void updateTaskModalBottomSheet(
                     children: [
                       InkWell(
                           onTap: () {
+                            //Modal sheet to select the priority
                             showModalBottomSheet(
                               context: context,
-                              backgroundColor: Color(0xFF232B3E).withOpacity(0),
+                              backgroundColor:
+                                  const Color(0xFF232B3E).withOpacity(0),
                               builder: (context) {
                                 return Container(
                                   decoration: BoxDecoration(
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: const Radius.circular(10),
-                                        topRight: const Radius.circular(10),
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        topRight: Radius.circular(10),
                                       )),
                                   height: 200,
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.stretch,
                                     children: [
-                                      CustomText(
+                                      const CustomText(
                                         text: 'Priority',
                                         fontSize: 30,
                                         textAlign: TextAlign.center,
@@ -187,7 +187,7 @@ void updateTaskModalBottomSheet(
                           child: Card(
                             child: Container(
                               width: 150,
-                              padding: EdgeInsets.all(30),
+                              padding: const EdgeInsets.all(30),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -195,8 +195,9 @@ void updateTaskModalBottomSheet(
                                     'assets/icons/priority_icon.png',
                                     color: Theme.of(context).iconTheme.color,
                                   ),
-                                  SizedBox(height: 10),
-                                  CustomText(text: "Priority", fontSize: 15),
+                                  const SizedBox(height: 10),
+                                  const CustomText(
+                                      text: "Priority", fontSize: 15),
                                   CustomText(
                                     text: describeEnum(newTask.priority),
                                     fontSize: 13,
@@ -208,21 +209,22 @@ void updateTaskModalBottomSheet(
                           )),
                       InkWell(
                         onTap: () {
-                          _selectDate(context, modalSetState);
+                          _selectDate(modalSetState);
                         },
                         child: Card(
                           child: Container(
                             width: 150,
-                            padding: EdgeInsets.all(30),
+                            padding: const EdgeInsets.all(30),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Image.asset(
-                                  'assets/icons/dtat_and_time_icon.png',
+                                  'assets/icons/date_and_time_icon.png',
                                   color: Theme.of(context).iconTheme.color,
                                 ),
-                                SizedBox(height: 10),
-                                CustomText(text: "Due date", fontSize: 15),
+                                const SizedBox(height: 10),
+                                const CustomText(
+                                    text: "Due date", fontSize: 15),
                                 CustomText(
                                   text: newTask.dueDate != null
                                       ? DateFormat.yMd().format(newTask.dueDate)
@@ -238,9 +240,10 @@ void updateTaskModalBottomSheet(
                     ],
                   ),
                 ),
+                //To select the time in hour (the default is 12:00 AM)
                 if (newTask.dueDate != null)
                   FlatButton.icon(
-                    icon: Icon(Icons.access_time),
+                    icon: const Icon(Icons.access_time),
                     label: Text(DateFormat.jm().format(newTask.dueDate)),
                     onPressed: () async {
                       final TimeOfDay picked = await showTimePicker(
@@ -307,10 +310,11 @@ void updateTaskModalBottomSheet(
       });
 }
 
+//to add a card theme to the textFeild
 class BottomCard extends StatelessWidget {
   final Widget child;
 
-  BottomCard({this.child});
+  const BottomCard({this.child});
 
   @override
   Widget build(BuildContext context) {

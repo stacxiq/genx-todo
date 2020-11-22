@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 
-// Provider finished
 class SettingsController extends GetxController {
   ///to use SettingsController.to instead Get.find<SettingsController>()
   static SettingsController get to => Get.find();

@@ -1,14 +1,13 @@
 import 'dart:async';
 
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 import '../../ui/widgets/custom_text.dart';
-import '../../controllers/theme_controller.dart';
 
 class Pomodoro extends StatefulWidget {
+  const Pomodoro();
   @override
   _PomodoroState createState() => _PomodoroState();
 }
@@ -20,7 +19,6 @@ class _PomodoroState extends State<Pomodoro> {
   int seconds = 59;
   String timeSec;
   Timer timer;
-  Color selectedColor;
   bool isWork = false;
 
   @override
@@ -88,66 +86,60 @@ class _PomodoroState extends State<Pomodoro> {
 
   @override
   Widget build(BuildContext context) {
-    return GetX<SettingsController>(
-      init: SettingsController(),
-      builder: (s) {
-        selectedColor = Color(int.parse(s.prefColor.value));
-        return Scaffold(
-          body: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(height: 30),
-                Expanded(
-                  child: CircularPercentIndicator(
-                    percent: percent,
-                    animation: true,
-                    lineWidth: 10.0,
-                    circularStrokeCap: CircularStrokeCap.round,
-                    reverse: false,
-                    animateFromLastPercent: true,
-                    radius: 220.0,
-                    progressColor: selectedColor,
-                    center: CustomText(
-                      text: "$timeInMinute : $timeSec",
-                      fontSize: 50.0,
-                      textDirection: TextDirection.ltr,
+    return Scaffold(
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const SizedBox(height: 30),
+            Expanded(
+              child: CircularPercentIndicator(
+                percent: percent,
+                animation: true,
+                lineWidth: 10.0,
+                circularStrokeCap: CircularStrokeCap.round,
+                reverse: false,
+                animateFromLastPercent: true,
+                radius: 220.0,
+                progressColor: Theme.of(context).accentColor,
+                center: CustomText(
+                  text: "$timeInMinute : $timeSec",
+                  fontSize: 50.0,
+                  textDirection: TextDirection.ltr,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Card(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.only(top: 30.0, left: 20.0, right: 20.0),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            infoBlock("Work Time", "25"),
+                            infoBlock("Break Time", "5"),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            button(true, !isWork ? "Start" : "Pause"),
+                            const SizedBox(width: 20),
+                            button(false, "Stop"),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ),
-                Expanded(
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          top: 30.0, left: 20.0, right: 20.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                infoBlock("Work Time", "25"),
-                                infoBlock("Break Time", "5"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                button(true, !isWork ? "Start" : "Pause"),
-                                SizedBox(width: 20),
-                                button(false, "Stop"),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 

@@ -110,4 +110,7 @@ Map<String, String> get englishMap => {
       "Task Details": "Task Details",
       "Save Changes": "Save Changes",
       "Delete": "Delete",
+      "Are you sure?": "Are you sure?",
+      "All tasks from the list will also be deleted":
+          "All tasks from the list will also be deleted",
     };

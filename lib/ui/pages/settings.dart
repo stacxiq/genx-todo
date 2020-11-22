@@ -18,6 +18,7 @@ final List<String> prefrencesColorsLight = [
 ];
 
 class SettingsTap extends StatelessWidget {
+  const SettingsTap();
   @override
   Widget build(BuildContext context) {
     return GetX<SettingsController>(
@@ -29,20 +30,20 @@ class SettingsTap extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: CustomText(text: 'Settings'),
+              title: const CustomText(text: 'Settings'),
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: CustomText(
+                  child: const CustomText(
                       text: 'Preferences', iprefText: true, fontSize: 18),
                 ),
                 SettingsCard(
                   children: <Widget>[
-                    CustomText(text: 'Color'),
+                    const CustomText(text: 'Color'),
                     Row(
                       children: (isDark
                               ? prefrencesColorsDark
@@ -80,7 +81,7 @@ class SettingsTap extends StatelessWidget {
                 ),
                 SettingsCard(
                   children: <Widget>[
-                    CustomText(text: 'Dark Theme'),
+                    const CustomText(text: 'Dark Theme'),
                     Switch(
                         value: isDark,
                         activeColor: Color(int.parse(selectedColor)),

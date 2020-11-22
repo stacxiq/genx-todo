@@ -9,6 +9,14 @@ import './localization/localizations.dart';
 import './controllers/theme_controller.dart';
 import './controllers/task_controller.dart';
 
+//TODO: things to be done
+//1- comlete the notfication functionality
+//2 - cmplete the ui side of the pomodoro and link it to notification
+//3- notify the user when the task reaches it's due date
+//4- add the app icon and splash screen
+//future stuff:
+//1- add the abbility to repeat the task
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final appDocumentDirectory =

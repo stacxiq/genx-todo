@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 enum TaskPriority { high, medium, low }
 
+///To convert a string bool (i.e. "true"/"false") to normal boll value
 bool boolParse(String bStr) {
   if (bStr == "true")
     return true;
@@ -38,10 +39,16 @@ class Task {
 
   final String id;
   final String title;
+
+  ///The description of the task ant it is optional
   final String body;
   final TaskPriority priority;
   final DateTime dueDate;
+
+  ///For futuer use currentlt just set it to DateTime.now()
   final DateTime createdAt;
+
+  ///to identify which list the task belongs to
   final String belongsTo;
   final bool isFinished;
 
