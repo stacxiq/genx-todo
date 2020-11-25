@@ -5,7 +5,7 @@ import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import './calendar.dart';
 import './settings.dart';
 import './Pomodoro.dart';
-import '../widgets/my_lists_tab.dart';
+import './my_lists_tab.dart';
 import '../../controllers/theme_controller.dart';
 
 class GenxTodo extends StatefulWidget {

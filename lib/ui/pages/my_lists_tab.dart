@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import './custom_text.dart';
+import '../widgets/custom_text.dart';
 import '../pages/tasks_list_page.dart';
 import '../../controllers/task_controller.dart';
 
@@ -136,7 +136,7 @@ class _MyListsTabState extends State<MyListsTab> {
         contentPadding: const EdgeInsets.all(16.0),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        title: const CustomText(text: 'List Name'),
+        title: const CustomText(text: 'List name'),
         content: Form(
           key: _fromKey,
           child: TextFormField(

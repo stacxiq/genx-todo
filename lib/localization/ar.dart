@@ -110,4 +110,7 @@ Map<String, String> get arabicMap => {
       "All tasks from the list will also be deleted.":
           "كل المهام المرتبطة بهذة القئمة سيتم حذفها ايضا.",
       "eg. Whishlist": "مثلا: قائمة الاماني",
+      "SAVE": "حفظ",
+      "List name": "اسم القائمة",
+      "CANCEL": "الغاء",
     };

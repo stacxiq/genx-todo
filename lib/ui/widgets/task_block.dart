@@ -1,45 +1,82 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import '../../controllers/task_controller.dart';
+import '../../models/date_formatter.dart';
+import '../../models/task.dart';
 import './creat_task.dart';
 import './custom_text.dart';
-import '../../models/task.dart';
-import '../../models/date_formatter.dart';
-import '../../controllers/task_controller.dart';
 
-class TaskBlock extends StatelessWidget {
+class TaskBlock extends StatefulWidget {
   final Task taskData;
 
-  const TaskBlock({this.taskData});
+  const TaskBlock({
+    Key key,
+    this.taskData,
+  }) : super(key: key);
+
+  @override
+  _TaskBlockState createState() => _TaskBlockState();
+}
+
+class _TaskBlockState extends State<TaskBlock>
+    with SingleTickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<Offset> _offsetAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+    _offsetAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(-1.0, 0.0),
+    ).animate(CurvedAnimation(
+      parent: _controller,
+      curve: Curves.ease,
+    ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: Duration(seconds: 2),
+    return SlideTransition(
+      position: _offsetAnimation,
+      key: widget.key,
       child: Card(
         margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: ListTile(
-          onTap: () =>
-              updateTaskModalBottomSheet(context: context, oldTask: taskData),
+          onTap: () => updateTaskModalBottomSheet(
+              context: context, oldTask: widget.taskData),
           leading: CircleCheckbox(
-            value: taskData.isFinished,
-            onChanged: (value) {
+            value: widget.taskData.isFinished,
+            onChanged: (value) async {
+              await _controller.forward();
               TaskController.to
-                  .updateTask(taskData.copyWith(isFinished: value));
+                  .updateTask(widget.taskData.copyWith(isFinished: value));
             },
           ),
-          title: CustomText(text: taskData.title, fontSize: 20),
+          title: CustomText(text: widget.taskData.title, fontSize: 20),
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText(
-                  text: taskData.body.isEmpty
+                  text: widget.taskData.body.isEmpty
                       ? 'No description'
-                      : taskData.body.length > 20
-                          ? taskData.body.substring(0, 20)
-                          : taskData.body,
+                      : widget.taskData.body.length > 20
+                          ? widget.taskData.body.substring(0, 20)
+                          : widget.taskData.body,
                   fontSize: 15),
               CustomText(
-                  text: CustomDateFormatter.format(taskData.dueDate),
+                  text: CustomDateFormatter.format(widget.taskData.dueDate),
                   iprefText: true),
             ],
           ),
@@ -48,14 +85,14 @@ class TaskBlock extends StatelessWidget {
             width: 70,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: taskData.priority == TaskPriority.high
+                color: widget.taskData.priority == TaskPriority.high
                     ? Colors.red
-                    : taskData.priority == TaskPriority.medium
+                    : widget.taskData.priority == TaskPriority.medium
                         ? Colors.amber
                         : Colors.green),
             child: Center(
               child: CustomText(
-                text: describeEnum(taskData.priority),
+                text: describeEnum(widget.taskData.priority),
                 textColor: Colors.white,
               ),
             ),

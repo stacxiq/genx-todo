@@ -53,12 +53,14 @@ class _CalendartTapState extends State<CalendartTap> {
             if (t.dueDate != null) {
               if (selectedDate.day == t.dueDate.day &&
                   selectedDate.month == t.dueDate.month &&
-                  selectedDate.year == t.dueDate.year) {
+                  selectedDate.year == t.dueDate.year &&
+                  !t.isFinished) {
                 _selectedEvents.add(t);
               }
-              _events.update(t.dueDate, (value) {
-                return value..add(t);
-              }, ifAbsent: () => [t]);
+              if (!t.isFinished)
+                _events.update(t.dueDate, (value) {
+                  return value..add(t);
+                }, ifAbsent: () => [t]);
             }
           });
 

@@ -112,17 +112,19 @@ class _TasksListPageState extends State<TasksListPage> {
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: CustomText(
-                      text: titleBlock, iprefText: true, fontSize: 22)),
+              titleBlock.isEmpty
+                  ? SizedBox(height: 10)
+                  : Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: CustomText(
+                          text: titleBlock, iprefText: true, fontSize: 22)),
               ListView.builder(
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: tasks.length,
                 itemBuilder: (BuildContext context, int index) {
-                  return TaskBlock(taskData: tasks[index]);
+                  return TaskBlock(taskData: tasks[index], key: UniqueKey());
                 },
               ),
             ],
