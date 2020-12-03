@@ -13,6 +13,7 @@ class SettingsController extends GetxController {
   static SettingsController get to => Get.find();
 
   @override
+  // ignore: type_annotate_public_apis
   onInit() async {
     super.onInit();
     settings = await Hive.openBox('settings');
@@ -24,14 +25,15 @@ class SettingsController extends GetxController {
     _getlocaleFromDataBase();
     _getPrefColorFromDataBase();
     if (firstTime) {
-      Timer(Duration(seconds: 60), () => settings.put("firstTime", false));
+      Timer(
+          const Duration(seconds: 60), () => settings.put("firstTime", false));
     }
   }
 
   Box settings;
   final prefColor = '0xFF76DC58'.obs;
   final _themeMode = ThemeMode.system.obs;
-  final _locale = Locale('en').obs;
+  final _locale = const Locale('en').obs;
   final _firstTime = true.obs;
   Locale get locale => _locale.value;
   ThemeMode get themeMode => _themeMode.value;
@@ -76,7 +78,7 @@ class SettingsController extends GetxController {
     try {
       locale = Locale(languageCode);
     } catch (e) {
-      locale = Locale('en');
+      locale = const Locale('en');
     }
     setLocale(locale);
   }
@@ -99,26 +101,28 @@ class SettingsController extends GetxController {
     setPrefColor(prefColor);
   }
 
-  static ThemeData themeData(bool isLightTheme) {
+  static ThemeData themeData({bool isLightTheme = true}) {
     return ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       primarySwatch: Colors.grey,
-      primaryColor: isLightTheme ? Colors.white : Color(0xFF494A67),
+      primaryColor: isLightTheme ? Colors.white : const Color(0xFF494A67),
       brightness: isLightTheme ? Brightness.light : Brightness.dark,
-      backgroundColor: isLightTheme ? Color(0xFFFFFFFF) : Color(0xFF424360),
+      backgroundColor:
+          isLightTheme ? const Color(0xFFFFFFFF) : const Color(0xFF424360),
       bottomSheetTheme:
-          BottomSheetThemeData(backgroundColor: Color(0xFF737373)),
+          const BottomSheetThemeData(backgroundColor: Color(0xFF737373)),
       scaffoldBackgroundColor:
-          isLightTheme ? Color(0xFFFFFFFF) : Color(0xFF424360),
-      canvasColor: isLightTheme ? Colors.white : Color(0xFF494A67),
-      cardColor: isLightTheme ? Colors.white : Color(0xFF494A67),
+          isLightTheme ? const Color(0xFFFFFFFF) : const Color(0xFF424360),
+      canvasColor: isLightTheme ? Colors.white : const Color(0xFF494A67),
+      cardColor: isLightTheme ? Colors.white : const Color(0xFF494A67),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: isLightTheme ? Colors.grey[100] : Color(0xFF494A67),
+        backgroundColor:
+            isLightTheme ? Colors.grey[100] : const Color(0xFF494A67),
         type: BottomNavigationBarType.fixed,
         unselectedItemColor: const Color(0xffC5C3E3),
       ),
       appBarTheme: AppBarTheme(
-          color: isLightTheme ? Colors.grey[100] : Color(0xFF494A67)),
+          color: isLightTheme ? Colors.grey[100] : const Color(0xFF494A67)),
     );
   }
 }

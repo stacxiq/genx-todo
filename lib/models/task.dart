@@ -4,9 +4,9 @@ enum TaskPriority { high, medium, low }
 
 ///To convert a string bool (i.e. "true"/"false") to normal boll value
 bool boolParse(String bStr) {
-  if (bStr == "true")
+  if (bStr == "true") {
     return true;
-  else if (bStr == " false") return false;
+  } else if (bStr == " false") return false;
   return false;
 }
 

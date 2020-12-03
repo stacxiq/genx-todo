@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:get/get.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -30,8 +28,8 @@ class TaskController extends GetxController {
   }
 
   Future<Database> _intDB() async {
-    Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path, 'mydb.db');
+    final documentDirectory = await getApplicationDocumentsDirectory();
+    final path = join(documentDirectory.path, 'mydb.db');
     var myOwnDB = await openDatabase(path, version: 1, onCreate: _onCreate);
     return myOwnDB;
   }
@@ -52,7 +50,7 @@ class TaskController extends GetxController {
     try {
       _tasks.add(task);
       update(['tasks2', "calendar"]);
-      int result = await _dbInstance.insert("$_taskTable", task.toMap());
+      final result = await _dbInstance.insert("$_taskTable", task.toMap());
       return result;
     } catch (e) {
       print(e.toString());
@@ -86,7 +84,7 @@ class TaskController extends GetxController {
   }
 
   List<Task> _listofTasksFromMap(Map<int, dynamic> result) {
-    List<Task> tasks = [];
+    var tasks = <Task>[];
     result?.forEach((key, task) {
       tasks.add(Task.fromMap(task));
     });
@@ -132,7 +130,7 @@ class TaskController extends GetxController {
     try {
       _taskLists.add(listName);
       update(['tasks']);
-      int result =
+      final result =
           await _dbInstance.insert("$_taskListsTable", {"name": listName});
       return result;
     } catch (e) {
@@ -150,7 +148,7 @@ class TaskController extends GetxController {
         if (t.belongsTo == listName) deleteTask(t.id);
       });
       update(['tasks']);
-      int result = await _dbInstance
+      final result = await _dbInstance
           .delete("$_taskListsTable", where: 'name = ?', whereArgs: [listName]);
       return result;
     } catch (e) {

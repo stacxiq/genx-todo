@@ -2,12 +2,12 @@ import 'package:intl/intl.dart';
 
 class CustomDateFormatter {
   static String format(DateTime dateTime) {
-    DateTime now = DateTime.now();
+    final now = DateTime.now();
     if (dateTime == null) return '';
 
-    DateTime localDateTime = dateTime.toLocal();
+    final localDateTime = dateTime.toLocal();
 
-    String roughTimeString = DateFormat('jm').format(dateTime);
+    final roughTimeString = DateFormat('jm').format(dateTime);
 
     if (localDateTime.day == now.day &&
         localDateTime.month == now.month &&
@@ -15,7 +15,7 @@ class CustomDateFormatter {
       return 'Today , $roughTimeString';
     }
 
-    DateTime yesterday = now.add(Duration(days: 1));
+    final yesterday = now.add(const Duration(days: 1));
 
     if (localDateTime.day == yesterday.day &&
         localDateTime.month == now.month &&

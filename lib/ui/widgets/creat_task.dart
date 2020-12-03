@@ -16,9 +16,9 @@ void updateTaskModalBottomSheet(
   Task newTask;
   final tc = TaskController.to;
 
-  if (oldTask != null)
+  if (oldTask != null) {
     newTask = oldTask;
-  else
+  } else {
     newTask = Task(
       id: Uuid().v4(),
       title: '',
@@ -29,19 +29,21 @@ void updateTaskModalBottomSheet(
       belongsTo: 'Default',
       isFinished: false,
     );
+  }
 
   Future _selectDate(StateSetter modalSetState) async {
-    final DateTime picked = await showDatePicker(
+    final picked = await showDatePicker(
       context: context,
       initialDate: newTask.dueDate ?? DateTime.now(),
       initialDatePickerMode: DatePickerMode.day,
       firstDate: DateTime(2015),
       lastDate: DateTime(2101),
     );
-    if (picked != null)
+    if (picked != null) {
       modalSetState(() {
         newTask = newTask.copyWith(dueDate: picked);
       });
+    }
   }
 
   showMaterialModalBottomSheet(
@@ -54,7 +56,7 @@ void updateTaskModalBottomSheet(
         ///the modal sheet doesn't update its state. So insted use [modalSetState((){})]
         return StatefulBuilder(builder: (context, modalSetState) {
           return Container(
-            height: _height >= 750 ? _height * 0.8 : _height * 0.8,
+            height: _height <= 750 ? _height * 0.88 : _height * 0.8,
             decoration: BoxDecoration(
                 color: Theme.of(context).scaffoldBackgroundColor,
                 borderRadius: const BorderRadius.only(
@@ -246,17 +248,18 @@ void updateTaskModalBottomSheet(
                     icon: const Icon(Icons.access_time),
                     label: Text(DateFormat.jm().format(newTask.dueDate)),
                     onPressed: () async {
-                      final TimeOfDay picked = await showTimePicker(
+                      final picked = await showTimePicker(
                         context: context,
                         initialTime:
                             TimeOfDay(hour: newTask.dueDate.hour, minute: 0),
                       );
-                      if (picked != null)
+                      if (picked != null) {
                         modalSetState(() {
                           newTask = newTask.copyWith(
                               dueDate: newTask.dueDate.copywith(
                                   hour: picked.hour, minute: picked.minute));
                         });
+                      }
                     },
                   ),
                 DropdownButton<String>(
@@ -272,7 +275,7 @@ void updateTaskModalBottomSheet(
                         () => newTask = newTask.copyWith(belongsTo: value));
                   },
                 ),
-                Spacer(),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
@@ -319,7 +322,7 @@ class BottomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: SizedBox(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

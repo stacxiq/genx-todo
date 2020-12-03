@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-import '../../controllers/task_controller.dart';
-import '../../models/date_formatter.dart';
-import '../../models/task.dart';
 import './creat_task.dart';
 import './custom_text.dart';
+import '../../models/task.dart';
+import '../../models/date_formatter.dart';
+import '../../controllers/task_controller.dart';
 
 class TaskBlock extends StatefulWidget {
   final Task taskData;
@@ -52,7 +52,7 @@ class _TaskBlockState extends State<TaskBlock>
       position: _offsetAnimation,
       key: widget.key,
       child: Card(
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
         child: ListTile(
           onTap: () => updateTaskModalBottomSheet(
               context: context, oldTask: widget.taskData),

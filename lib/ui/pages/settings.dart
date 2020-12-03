@@ -24,8 +24,8 @@ class SettingsTap extends StatelessWidget {
     return GetX<SettingsController>(
         init: SettingsController(),
         builder: (s) {
-          String selectedColor = s.prefColor.value;
-          bool isDark = s.themeMode == ThemeMode.dark ? true : false;
+          final selectedColor = s.prefColor.value;
+          final isDark = s.themeMode == ThemeMode.dark ? true : false;
 
           return Scaffold(
             appBar: AppBar(
@@ -36,9 +36,9 @@ class SettingsTap extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: const CustomText(
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 8.0),
+                  child: CustomText(
                       text: 'Preferences', iprefText: true, fontSize: 18),
                 ),
                 SettingsCard(
@@ -51,7 +51,7 @@ class SettingsTap extends StatelessWidget {
                           .map((hexColor) => InkWell(
                                 onTap: () => s.setPrefColor(hexColor),
                                 child: Container(
-                                  margin: EdgeInsets.all(5),
+                                  margin: const EdgeInsets.all(5),
                                   decoration: BoxDecoration(
                                       border: selectedColor == hexColor
                                           ? Border.all(
@@ -104,7 +104,7 @@ class SettingsTap extends StatelessWidget {
                 ),
                 SettingsCard(
                   children: <Widget>[
-                    CustomText(text: 'Language'),
+                    const CustomText(text: 'Language'),
                     SizedBox(
                       width: 90,
                       child: ButtonTheme(
@@ -132,15 +132,17 @@ class SettingsTap extends StatelessWidget {
                           onChanged: (value) {
                             switch (value) {
                               case 'Arabic':
-                                if (s.locale.languageCode != 'ar')
-                                  s.setLocale(Locale('ar'));
+                                if (s.locale.languageCode != 'ar') {
+                                  s.setLocale(const Locale('ar'));
+                                }
                                 break;
                               case 'English':
-                                if (s.locale.languageCode != 'en')
-                                  s.setLocale(Locale('en'));
+                                if (s.locale.languageCode != 'en') {
+                                  s.setLocale(const Locale('en'));
+                                }
                                 break;
                               default:
-                                s.setLocale(Locale('en'));
+                                s.setLocale(const Locale('en'));
                             }
                           },
                         ),
@@ -164,7 +166,7 @@ class SettingsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: SizedBox(
         height: 55,
         child: Padding(

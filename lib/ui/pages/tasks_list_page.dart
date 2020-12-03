@@ -28,32 +28,37 @@ class _TasksListPageState extends State<TasksListPage> {
     return GetBuilder<TaskController>(
         id: 'tasks2',
         builder: (tc) {
+          // ignore: omit_local_variable_types
           List<Task> today = [],
               tomorrow = [],
               later = [],
               noDate = [],
               //selectedTasks
               sTasks = tc.tasks.where((t) {
-                if (widget.selectedList == "Finished")
+                if (widget.selectedList == "Finished") {
                   return t.isFinished;
-                else if (widget.selectedList == "All Tasks")
+                } else if (widget.selectedList == "All Tasks") {
                   return !t.isFinished;
+                }
 
                 return t.belongsTo == widget.selectedList && !t.isFinished;
               }).toList();
 
-          if (sTasks.isNotEmpty)
+          if (sTasks.isNotEmpty) {
             sTasks.forEach((ti) {
-              if (ti.dueDate == null)
+              if (ti.dueDate == null) {
                 noDate.add(ti);
-              else if (CustomDateFormatter.format(ti.dueDate).contains('Today'))
+              } else if (CustomDateFormatter.format(ti.dueDate)
+                  .contains('Today')) {
                 today.add(ti);
-              else if (CustomDateFormatter.format(ti.dueDate)
-                  .contains('Tomorrow'))
+              } else if (CustomDateFormatter.format(ti.dueDate)
+                  .contains('Tomorrow')) {
                 tomorrow.add(ti);
-              else
+              } else {
                 later.add(ti);
+              }
             });
+          }
 
           Widget _checkIfEmpty({Widget child}) {
             return sTasks.isEmpty
@@ -106,14 +111,14 @@ class _TasksListPageState extends State<TasksListPage> {
         });
   }
 
-  todoList(List<Task> tasks, String titleBlock) {
+  Widget todoList(List<Task> tasks, String titleBlock) {
     return tasks.isEmpty
         ? Container()
         : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               titleBlock.isEmpty
-                  ? SizedBox(height: 10)
+                  ? const SizedBox(height: 10)
                   : Container(
                       margin: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
@@ -121,9 +126,9 @@ class _TasksListPageState extends State<TasksListPage> {
                           text: titleBlock, iprefText: true, fontSize: 22)),
               ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: tasks.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   return TaskBlock(taskData: tasks[index], key: UniqueKey());
                 },
               ),

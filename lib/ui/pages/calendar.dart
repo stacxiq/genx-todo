@@ -57,10 +57,11 @@ class _CalendartTapState extends State<CalendartTap> {
                   !t.isFinished) {
                 _selectedEvents.add(t);
               }
-              if (!t.isFinished)
+              if (!t.isFinished) {
                 _events.update(t.dueDate, (value) {
                   return value..add(t);
                 }, ifAbsent: () => [t]);
+              }
             }
           });
 
@@ -71,7 +72,7 @@ class _CalendartTapState extends State<CalendartTap> {
             ),
             body: SingleChildScrollView(
               physics:
-                  BouncingScrollPhysics(), //I don't know what this is. Ask fahad
+                  const BouncingScrollPhysics(), //I don't know what this is. Ask fahad
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -79,7 +80,7 @@ class _CalendartTapState extends State<CalendartTap> {
                   ListView.builder(
                     itemCount: _selectedEvents.length,
                     shrinkWrap: true,
-                    itemBuilder: (BuildContext context, int index) {
+                    itemBuilder: (context, index) {
                       return TaskBlock(taskData: _selectedEvents[index]);
                     },
                   ),
@@ -89,7 +90,7 @@ class _CalendartTapState extends State<CalendartTap> {
             floatingActionButton: FloatingActionButton(
               onPressed: () => updateTaskModalBottomSheet(context: context),
               backgroundColor: Theme.of(context).accentColor,
-              child: Icon(Icons.add, color: Colors.white),
+              child: const Icon(Icons.add, color: Colors.white),
             ),
           );
         });
@@ -139,11 +140,8 @@ class _CalendartTapState extends State<CalendartTap> {
 
   ///To indicate that there is some events on that day
   Widget _buildEventsMarkerDot() {
-    return Center(
-      child: const Text(
-        '.',
-        style: TextStyle(fontSize: 30.0),
-      ),
+    return const Center(
+      child: Text('.', style: TextStyle(fontSize: 30.0)),
     );
   }
 }

@@ -24,7 +24,7 @@ class _GenxTodoState extends State<GenxTodo> {
     const SettingsTap(),
   ];
 
-  List<BottomNav> _items = [
+  final _items = [
     const BottomNav('Tasks', LineAwesomeIcons.check_square),
     const BottomNav('Calendar', LineAwesomeIcons.calendar_check),
     const BottomNav('Pomodoro', LineAwesomeIcons.stopwatch),
@@ -36,7 +36,7 @@ class _GenxTodoState extends State<GenxTodo> {
     return GetX<SettingsController>(
         // init: SettingsController(),
         builder: (s) {
-      Color selectedColor = Color(int.parse(s.prefColor.value));
+      final selectedColor = Color(int.parse(s.prefColor.value));
       return Scaffold(
         body: taps[_currentIndex],
         bottomNavigationBar: BottomNavigationBar(

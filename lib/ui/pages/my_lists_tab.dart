@@ -23,8 +23,8 @@ class _MyListsTabState extends State<MyListsTab> {
     var _appBarColor = Theme.of(context).appBarTheme.color;
 
     /*24 is for notification bar on Android*/
-    final double itemHeight = ((_height * 0.75) - kToolbarHeight - 24) / 2;
-    final double itemWidth = _width / 2;
+    final itemHeight = ((_height * 0.75) - kToolbarHeight - 24) / 2;
+    final itemWidth = _width / 2;
 
     Widget _gridItem(String listName,
         {String image = '', IconData icon = Icons.list_alt_outlined}) {
@@ -120,10 +120,8 @@ class _MyListsTabState extends State<MyListsTab> {
                 FlatButton(
                     child: const CustomText(text: 'DELETE'),
                     onPressed: () {
-                      if (_fromKey.currentState.validate()) {
-                        TaskController.to.removeList(listName);
-                        Navigator.pop(context);
-                      }
+                      TaskController.to.removeList(listName);
+                      Navigator.pop(context);
                     })
               ],
             ));
