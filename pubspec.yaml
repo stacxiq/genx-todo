@@ -12,20 +12,20 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^0.1.3
-  flutter_ringtone_player: ^2.0.0
-  get: ^3.21.1
-  hive: ^1.4.4+1
-  line_awesome_flutter: ^1.0.1
-  modal_bottom_sheet: ^1.0.0+1
-  path_provider: ^1.6.24
-  percent_indicator: ^2.1.8
-  sqflite: ^1.3.2+1
-  table_calendar: ^2.3.0
-  uuid: ^2.2.2
+  cupertino_icons: 
+  flutter_ringtone_player: 
+  get: 
+  hive: 
+  line_awesome_flutter: 
+  modal_bottom_sheet:
+  path_provider: 
+  percent_indicator:
+  sqflite: ^1.3.0
+  table_calendar: 
+  uuid: 
+  introduction_screen: ^1.0.7
 
-dependency_overrides:
-  intl: 0.17.0-nullsafety.2
+
 
 dev_dependencies:
   effective_dart: ^1.2.2
@@ -35,7 +35,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/icons/
+    - assets/
+    - assets/images/
   #   - images/a_dot_ham.jpeg
   fonts:
     - family: OpenSans

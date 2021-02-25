@@ -1,12 +1,12 @@
 {
   "images" : [
     {
-      "filename" : "LaunchImage.png",
+      "filename" : "GENX.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "LaunchImage~ipad.png",
+      "filename" : "LaunchImage~iphone-320x480.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

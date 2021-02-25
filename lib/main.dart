@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:todolist/ui/pages/intro.dart';
 import './controllers/pomodoro_controller.dart';
 
 import './ui/pages/home_page.dart';
@@ -26,7 +27,7 @@ Future<void> main() async {
       await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   //initialize setting & Task controller lazily
-  Get.lazyPut<SettingsController>(() => SettingsController());
+  Get.put<SettingsController>(SettingsController());
   Get.put<TaskController>(TaskController());
   Get.put<PomodoroController>(PomodoroController());
   runApp(GenxApp());
@@ -45,7 +46,7 @@ class GenxApp extends StatelessWidget {
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
             darkTheme: SettingsController.themeData(isLightTheme: false)
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
-            home: GenxTodo(),
+            home: SettingsController.to.firstTime ? Introduction() : GenxTodo(),
             locale: _.locale,
             themeMode: ThemeMode.system,
             translations: MyTranslations(),

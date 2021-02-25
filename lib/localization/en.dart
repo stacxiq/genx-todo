@@ -113,4 +113,21 @@ Map<String, String> get englishMap => {
       "Are you sure?": "Are you sure?",
       "All tasks from the list will also be deleted":
           "All tasks from the list will also be deleted",
+      "Skip": "Skip",
+      "Done": "Done",
+      "Task List": "Task List",
+      "Calander": "Calander",
+      "Organize": "Organize",
+      "Create Task List and determine completed and"
+              "in review  and in testing process tasks":
+          "Create Task List and determine completed and"
+              "in review  and in testing process tasks",
+      "you can manage your tasks from calander"
+              "by adding and following your tasks":
+          "you can manage your tasks from calander"
+              "by adding and following your tasks",
+      "group and organize your task by adding your"
+              "task inside specific list and set priority ":
+          "group and organize your task by adding your"
+              "task inside specific list and set priority ",
     };

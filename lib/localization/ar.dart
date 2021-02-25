@@ -113,4 +113,21 @@ Map<String, String> get arabicMap => {
       "SAVE": "حفظ",
       "List name": "اسم القائمة",
       "CANCEL": "الغاء",
+      "Skip": "تخطي",
+      "Done": "انهاء",
+      "Task List": "قائمة المهام",
+      "Calander": "تقويم",
+      "Organize": "تنظيم",
+      "Create Task List and determine completed and"
+              "in review  and in testing process tasks":
+          "انشاء المهام الخاصه بك و تحديد المهام "
+              "المكتمله والتي هي قيد التنفيذ",
+      "you can manage your tasks from calander"
+              "by adding and following your tasks":
+          "يمكنك اداره المهام الخاصه بك من خلال "
+              "التقويم عن طريق اضافة و متابعة المهام",
+      "group and organize your task by adding your"
+              "task inside specific list and set priority ":
+          "جمع و تنظيم المهام الخاصه بك"
+              "ضمن اقسام و وضع اولويات لكل مهمة",
     };
