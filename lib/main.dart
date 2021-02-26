@@ -46,7 +46,7 @@ class GenxApp extends StatelessWidget {
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
             darkTheme: SettingsController.themeData(isLightTheme: false)
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
-            home: SettingsController.to.firstTime ? Introduction() : GenxTodo(),
+            home: Introduction(),
             locale: _.locale,
             themeMode: ThemeMode.system,
             translations: MyTranslations(),

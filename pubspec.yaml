@@ -24,13 +24,19 @@ dependencies:
   table_calendar: 
   uuid: 
   introduction_screen: ^1.0.7
+  flutter_launcher_icons: ^0.8.1
 
 
 
 dev_dependencies:
   effective_dart: ^1.2.2
+  flutter_launcher_icons: "^0.8.0"
   flutter_test:
     sdk: flutter
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/logo.png"
 
 flutter:
   uses-material-design: true
