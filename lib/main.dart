@@ -33,6 +33,15 @@ Future<void> main() async {
   runApp(GenxApp());
 }
 
+Widget first(bool first) {
+  if (first && first != null) {
+    print(first);
+    return Introduction();
+  } else {
+    return GenxTodo();
+  }
+}
+
 class GenxApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class GenxApp extends StatelessWidget {
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
             darkTheme: SettingsController.themeData(isLightTheme: false)
                 .copyWith(accentColor: Color(int.parse(_.prefColor.value))),
-            home: Introduction(),
+            home: first(_.firstTime),
             locale: _.locale,
             themeMode: ThemeMode.system,
             translations: MyTranslations(),

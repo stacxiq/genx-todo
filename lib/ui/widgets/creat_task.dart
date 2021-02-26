@@ -195,7 +195,6 @@ void updateTaskModalBottomSheet(
                                 children: [
                                   Image.asset(
                                     'assets/icons/priority_icon.png',
-                                    color: Theme.of(context).iconTheme.color,
                                   ),
                                   const SizedBox(height: 10),
                                   const CustomText(

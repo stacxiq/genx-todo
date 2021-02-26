@@ -14,20 +14,17 @@ class SettingsController extends GetxController {
 
   @override
   // ignore: type_annotate_public_apis
-  onInit() async {
+  onInit() {
     super.onInit();
     settings = await Hive.openBox('settings');
     //To indicate if it is the first time the user opens the app
-    _firstTime.value = await settings.get("firstTime") ?? true;
+    _firstTime.value = settings.get("firstTime") ?? true;
+    print(_firstTime.value);
     //The 3 functions is used when launching the app to get the settings data (theme, prefcolor, locale)
     //from the local database or set the default settings if it's the first time
     _getThemeModeFromDataBase();
     _getlocaleFromDataBase();
     _getPrefColorFromDataBase();
-    if (firstTime) {
-      Timer(
-          const Duration(seconds: 60), () => settings.put("firstTime", false));
-    }
   }
 
   Box settings;

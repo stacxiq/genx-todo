@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:todolist/controllers/theme_controller.dart';
 import 'package:todolist/ui/widgets/custom_text.dart';
@@ -8,8 +9,10 @@ import 'package:get/get.dart';
 
 class Introduction extends StatelessWidget {
   final introKey = GlobalKey<IntroductionScreenState>();
-
-  void _onIntroEnd(context) {
+  Box settings;
+  Future<void> _onIntroEnd(context) async {
+    settings = await Hive.openBox('settings');
+    settings.put("firstTime", false);
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => GenxTodo()),
     );
